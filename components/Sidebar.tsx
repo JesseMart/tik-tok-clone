@@ -8,14 +8,19 @@ import { ImCancelCircle } from 'react-icons/im'
 import Discover from './Discover'
 import Suggested from './Suggested'
 import Footer from './Footer'
+import useAuthStore from '../store/authStore'
 
 
 
-const Sidebar = () => {
+const Sidebar: NextPage = () => {
 
   const [showSidebar, setShowSidebar] = useState(true);
-  const normalLink = 'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded';
-  const userProfile = false;
+  const {pathname} = useRouter();
+  const {fetchAllUsers, allUsers} : any = useAuthStore();
+
+
+  const activeLink = 'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded';
+  const normalLink ='flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded'
 
 
 
@@ -34,7 +39,7 @@ const Sidebar = () => {
         >
           <div className='xl:border-b-2 border-gray-200 xl:p-4'>
             <Link href='/'>
-              <div className={normalLink}>
+              <div className={pathname === '/' ? activeLink : normalLink}>
                 <p className='text-2xl'>
                   <AiFillHome />
                 </p>
@@ -45,7 +50,7 @@ const Sidebar = () => {
             </Link>
           </div>
           <Discover />
-          <Suggested />
+          <Suggested fetchAllUsers={fetchAllUsers} allUsers={allUsers} />
           <Footer />
         </div>
       )}

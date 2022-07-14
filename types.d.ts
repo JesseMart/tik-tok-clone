@@ -35,3 +35,10 @@ export interface Video {
     userName: string;
     image: string;
   }
+  
+  export interface IComment {
+    comment : string;
+    length?: number;
+    _key: string;
+    postedBy : {_ref?: string; _id?: string};
+  }
